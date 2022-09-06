@@ -1,0 +1,8 @@
+{
+  "name": "preschool-backend",
+  "version": "1.0.0",
+  "description": "A mini social network for Mam Non Phuong Thy Community",
+  "main": "src/server.ts",
+  "author": "Tran Binh Co",
+  "license": "MIT"
+}
