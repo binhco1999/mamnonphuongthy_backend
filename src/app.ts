@@ -1,4 +1,4 @@
-import { Route } from 'core/interfaces';
+import { Route } from './core/interfaces';
 import express from 'express';
 class App{
     public app : express.Application;
