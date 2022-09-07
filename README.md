@@ -20,3 +20,4 @@
 - git remote add origin git@github.com:binhco1999/mamnonphuongthy_backend.git
 - git branch -M main
 - git push -u origin main
+- tsc --init
