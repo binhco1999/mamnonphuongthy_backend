@@ -1,5 +1,5 @@
-import { Route } from './core/interfaces';
-import { Logger } from './core/utils';
+import { Route } from '~/core/interfaces';
+import { Logger } from '~/core/utils';
 import express from 'express';
 import mongoose from 'mongoose';
 import hpp from 'hpp'
