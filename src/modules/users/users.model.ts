@@ -3,10 +3,10 @@ import IUser from "./users.interface";
 
 const UserSchema = new mongoose.Schema({
     //Mặc định nó sẽ tạo cho mình cái _id, có thể khai báo hoặc không đều được
-    firt_name:{
+    first_name:{
         type: String,
         require:true 
-    },
+    },      
     last_name:{
         type: String,
         require: true
