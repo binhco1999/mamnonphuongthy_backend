@@ -1,10 +1,14 @@
-import { IsNotEmpty, IsEmail, MinLength } from "class-validator";
+import { IsNotEmpty, IsEmail, MinLength } from 'class-validator';
 
 //vì muốn xử lý cho validation sau này nên ta dùng class
 
-
-export default class LoginDto{
-    constructor(first_name:string, last_name:string, email:string, password:string){
+export default class LoginDto {
+    constructor(
+        first_name: string,
+        last_name: string,
+        email: string,
+        password: string,
+    ) {
         this.email = email;
         this.password = password;
     }
@@ -15,5 +19,4 @@ export default class LoginDto{
     @IsNotEmpty()
     @MinLength(6)
     public password: string;
-
 }

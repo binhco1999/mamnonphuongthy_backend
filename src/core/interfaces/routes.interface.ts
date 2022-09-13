@@ -1,6 +1,6 @@
-import { Router } from "express";
+import { Router } from 'express';
 
-interface Route{
+interface Route {
     path: string;
     router: Router;
 }
