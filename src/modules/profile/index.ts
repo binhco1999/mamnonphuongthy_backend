@@ -1,3 +1,5 @@
-import { IProfile } from './profile.interface';
+import { IProfile } from '~/modules/profile/profile.interface';
+import ProfileRoute from '~/modules/profile/profile.route';
+import ProfileSchema from './profile.model';
 
-export { IProfile };
+export { ProfileRoute, ProfileSchema, IProfile };
