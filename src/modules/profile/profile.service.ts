@@ -1,9 +1,11 @@
-import { IProfile, ISocial } from './profile.interface';
+import { IExperience, IProfile, ISocial } from './profile.interface';
 import { IUser, UserSchema } from '~/modules/users';
+
+import AddExperienceDto from './dtos/add_experience.dto';
 import CreateProfileDto from './dtos/create_profile.dto';
 import { HttpException } from '~/core/exceptions';
 import ProfileSchema from './profile.model';
-import normalizeUrl from 'normalize-url';
+import normalize from 'normalize-url';
 
 class ProfileService {
     public async getCurrentProfile(userId: string): Promise<Partial<IUser>> {
@@ -40,9 +42,8 @@ class ProfileService {
             company,
             location,
             website: website,
-            //chuẩn hóa website đang lỗi
             // website && website != ''
-            //     ? normalizeUrl(website.toString())
+            //     ? normalize(website.toString(), { forceHttps: true })
             //     : '',
             bio,
             skills: Array.isArray(skills)
@@ -58,10 +59,10 @@ class ProfileService {
             linkedin,
             facebook,
         };
-        //chuẩn hóa website đang lỗi
+
         // for (const [key, value] of Object.entries(socialFields)) {
         //     if (value && value.length > 0) {
-        //         socialFields[key] = normalizeUrl(value, { forceHttps: true });
+        //         socialFields[key] = normalize(value, { forceHttps: true });
         //     }
         // }
         profileFields.social = socialFields;
@@ -88,5 +89,38 @@ class ProfileService {
             .exec();
         return profiles;
     }
+
+    public addExperience = async (
+        userId: string,
+        experience: AddExperienceDto,
+    ) => {
+        const newExp = {
+            ...experience,
+        };
+
+        const profile = await ProfileSchema.findOne({ user: userId }).exec();
+        if (!profile) {
+            throw new HttpException(400, 'There is not profile for this user');
+        }
+
+        profile.experience.unshift(newExp as IExperience);
+        await profile.save();
+
+        return profile;
+    };
+
+    public deleteExperience = async (userId: string, experienceId: string) => {
+        const profile = await ProfileSchema.findOne({ user: userId }).exec();
+
+        if (!profile) {
+            throw new HttpException(400, 'There is not profile for this user');
+        }
+
+        profile.experience = profile.experience.filter(
+            (exp) => exp._id.toString() !== experienceId,
+        );
+        await profile.save();
+        return profile;
+    };
 }
 export default ProfileService;
