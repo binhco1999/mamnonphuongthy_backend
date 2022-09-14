@@ -1,4 +1,9 @@
-import { IExperience, IProfile, ISocial } from './profile.interface';
+import {
+    IEducation,
+    IExperience,
+    IProfile,
+    ISocial,
+} from './profile.interface';
 import { IUser, UserSchema } from '~/modules/users';
 
 import AddExperienceDto from './dtos/add_experience.dto';
@@ -6,6 +11,7 @@ import CreateProfileDto from './dtos/create_profile.dto';
 import { HttpException } from '~/core/exceptions';
 import ProfileSchema from './profile.model';
 import normalize from 'normalize-url';
+import AddEducationDto from './dtos/add_education.dto';
 
 class ProfileService {
     public async getCurrentProfile(userId: string): Promise<Partial<IUser>> {
@@ -89,7 +95,7 @@ class ProfileService {
             .exec();
         return profiles;
     }
-
+    //for experience
     public addExperience = async (
         userId: string,
         experience: AddExperienceDto,
@@ -118,6 +124,39 @@ class ProfileService {
 
         profile.experience = profile.experience.filter(
             (exp) => exp._id.toString() !== experienceId,
+        );
+        await profile.save();
+        return profile;
+    };
+    //for education
+    public addEducation = async (
+        userId: string,
+        education: AddEducationDto,
+    ) => {
+        const newEdu = {
+            ...education,
+        };
+
+        const profile = await ProfileSchema.findOne({ user: userId }).exec();
+        if (!profile) {
+            throw new HttpException(400, 'There is not profile for this user');
+        }
+
+        profile.education.unshift(newEdu as IEducation);
+        await profile.save();
+
+        return profile;
+    };
+
+    public deleteEducation = async (userId: string, educationId: string) => {
+        const profile = await ProfileSchema.findOne({ user: userId }).exec();
+
+        if (!profile) {
+            throw new HttpException(400, 'There is not profile for this user');
+        }
+
+        profile.education = profile.education.filter(
+            (edu) => edu._id.toString() !== educationId,
         );
         await profile.save();
         return profile;
