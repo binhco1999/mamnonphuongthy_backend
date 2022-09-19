@@ -16,7 +16,9 @@ class AuthService {
             throw new HttpException(400, 'Model is empty');
         }
 
-        const user = await this.userSchema.findOne({ email: model.email });
+        const user = await this.userSchema
+            .findOne({ email: model.email })
+            .exec();
         if (!user) {
             throw new HttpException(
                 409,
@@ -34,7 +36,7 @@ class AuthService {
     }
 
     public async getCurrentLoginUser(userId: string): Promise<IUser> {
-        const user = await this.userSchema.findById(userId);
+        const user = await this.userSchema.findById(userId).exec();
         if (!user) {
             throw new HttpException(404, `User is not exists`);
         }
@@ -44,7 +46,7 @@ class AuthService {
     private createToken(user: IUser): TokenData {
         const dataInToken: DataStoredInToken = { id: user._id };
         const secret: string = process.env.JWT_TOKEN_SECRET!;
-        const expiresIn: number = 60;
+        const expiresIn: number = 3600;
         return {
             token: jwt.sign(dataInToken, secret, { expiresIn: expiresIn }),
         };
