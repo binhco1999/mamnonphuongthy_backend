@@ -33,8 +33,18 @@ export default class GroupsRoute implements Route {
 
         this.router.delete(
             this.path + '/:id',
-            authMiddleware,
             this.groupsController.deleteGroup,
+        );
+
+        this.router.post(
+            this.path + '/join/:id',
+            authMiddleware,
+            this.groupsController.joinGroup,
+        );
+
+        this.router.put(
+            this.path + '/:user_id/:group_id',
+            this.groupsController.approveJoinRequest,
         );
     }
 }
