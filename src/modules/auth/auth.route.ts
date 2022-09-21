@@ -4,7 +4,7 @@ import { Router } from 'express';
 import { authMiddleware } from '~/core/middleware';
 
 export default class AuthRoute implements Route {
-    public path = '/api/auth';
+    public path = '/api/v1/auth';
     public router = Router();
 
     public authController = new AuthController();
@@ -20,6 +20,6 @@ export default class AuthRoute implements Route {
             this.path,
             authMiddleware,
             this.authController.getCurrentLoginUser,
-        ); //GET: http://localhost:5000/api/auth --> Require login
+        ); //GET: http://localhost:5000/api/v1/auth --> Require login
     }
 }
