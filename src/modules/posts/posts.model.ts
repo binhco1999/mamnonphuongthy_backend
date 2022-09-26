@@ -11,6 +11,15 @@ const PostSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    urlimg: {
+        type: String,
+    },
+    title: {
+        type: String,
+    },
+    subtitle: {
+        type: String,
+    },
     name: {
         type: String,
     },

@@ -17,6 +17,9 @@ export default class PostService {
         if (!user) throw new HttpException(400, 'User id is not exist');
 
         const newPost = new PostSchema({
+            urlimg: postDto.urlimg,
+            title: postDto.title,
+            subtitle: postDto.subtitle,
             text: postDto.text,
             name: user.first_name + ' ' + user.last_name,
             avatar: user.avatar,
