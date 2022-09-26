@@ -31,9 +31,9 @@ module.exports = {
         ],
     },
     //only development
-    // plugins: [
-    //     new WebpackShellPlugin({
-    //         onBuildEnd: ['yarn run:dev'],
-    //     }),
-    // ],
+    plugins: [
+        new WebpackShellPlugin({
+            onBuildEnd: ['yarn run:dev'],
+        }),
+    ],
 };
