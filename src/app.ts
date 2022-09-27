@@ -43,7 +43,7 @@ class App {
             this.app.use(morgan('combined'));
             this.app.use(
                 cors({
-                    origin: 'https://mamnonphuongthy.surge.sh',
+                    origin: 'https://mamnonphuongthy.vercel.app',
                     credentials: true,
                 }),
             );
