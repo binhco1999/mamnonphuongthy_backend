@@ -42,7 +42,10 @@ class App {
             this.app.use(helmet());
             this.app.use(morgan('combined'));
             this.app.use(
-                cors({ origin: 'http://localhost:3000', credentials: true }),
+                cors({
+                    origin: 'https://mamnonphuongthy.surge.sh',
+                    credentials: true,
+                }),
             );
         } else {
             this.app.use(morgan('dev'));
