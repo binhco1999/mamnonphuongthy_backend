@@ -43,5 +43,10 @@ export default class UsersRoute implements Route {
             authMiddleware,
             this.usersController.deleteUser,
         );
+        this.router.delete(
+            this.path,
+            authMiddleware,
+            this.usersController.deleteUsers,
+        );
     }
 }

@@ -93,6 +93,14 @@ export default class PostService {
         await post.remove();
         return post;
     }
+    public async deletePosts(postIds: string[]): Promise<number | undefined> {
+        const result = await PostSchema.deleteMany({
+            _id: [...postIds],
+        }).exec();
+        if (!result) throw new HttpException(409, 'Your post id is invalid');
+        return result.deletedCount;
+    }
+
     public async likePost(userId: string, postId: string): Promise<ILike[]> {
         const post = await PostSchema.findById(postId).exec();
         if (!post) throw new HttpException(400, 'Post not found');

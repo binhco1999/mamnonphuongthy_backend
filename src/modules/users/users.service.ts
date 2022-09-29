@@ -176,6 +176,13 @@ class UserService {
         if (!deletedUser) throw new HttpException(409, 'Your id is invalid');
         return deletedUser;
     }
+    public async deleteUsers(userIds: string[]): Promise<number | undefined> {
+        const result = await this.userSchema
+            .deleteMany({ _id: [...userIds] })
+            .exec();
+        if (!result) throw new HttpException(409, 'Your id is invalid');
+        return result.deletedCount;
+    }
 
     private createToken(user: IUser): TokenData {
         const dataInToken: DataStoredInToken = { id: user._id };

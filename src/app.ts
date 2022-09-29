@@ -37,16 +37,26 @@ class App {
     }
 
     private initializeMiddleware() {
+        var whitelist = [
+            'http://localhost:3000',
+            'http://localhost:3001',
+            'https://mamnonphuongthy.vercel.app',
+            'https://mamnonphuongthy.surge.sh',
+        ];
+        var corsOptions = {
+            origin: function (origin: any, callback: any) {
+                if (whitelist.indexOf(origin) !== -1 || !origin) {
+                    callback(null, true);
+                } else {
+                    callback(new Error('Not allowed by CORS'));
+                }
+            },
+        };
         if (this.production) {
             this.app.use(hpp());
             this.app.use(helmet());
             this.app.use(morgan('combined'));
-            this.app.use(
-                cors({
-                    origin: 'https://mamnonphuongthy.vercel.app',
-                    credentials: true,
-                }),
-            );
+            this.app.use(cors(corsOptions));
         } else {
             this.app.use(morgan('dev'));
             this.app.use(cors({ origin: true, credentials: true }));

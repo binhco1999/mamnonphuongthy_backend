@@ -43,6 +43,11 @@ export default class PostsRoute implements Route {
             authMiddleware,
             this.postController.deletePost,
         );
+        this.router.delete(
+            this.path,
+            authMiddleware,
+            this.postController.deletePosts,
+        );
 
         this.router.put(
             this.path + '/like/:id',
