@@ -42,6 +42,7 @@ class App {
             'http://localhost:3001',
             'https://mamnonphuongthy.vercel.app',
             'https://mamnonphuongthy.surge.sh',
+            'https://mamnonphuongthy-quanly.vercel.app',
         ];
         var corsOptions = {
             origin: function (origin: any, callback: any) {
