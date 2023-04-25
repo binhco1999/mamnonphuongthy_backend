@@ -2,3 +2,4 @@ node_modules/
 logs/
 note.md
 dist/
+.vercel
